@@ -2,7 +2,7 @@
 :root{
   --void:#07070a;--surface:#0e0e12;--panel:#101015;--raised:#16161e;
   --border:rgba(255,255,255,.07);--rim:rgba(255,255,255,.13);
-  --text:#f0f0f0;--muted:rgba(255,255,255,.22);--dim:rgba(255,255,255,.06);
+  --text:#f0f0f0;--muted:rgba(255,255,255,.70);--dim:rgba(255,255,255,.55);
   /* Brand palette */
   --gold:#f5c559;--plum:#562165;--rose:#da3086;
   /* Functional */

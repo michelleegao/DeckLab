@@ -33,37 +33,49 @@ blobs.forEach((b) => {
 requestAnimationFrame(anim);
 })();
 
-// Load progress from localStorage
 function loadProgress() {
 try {
     const p = JSON.parse(localStorage.getItem("decklab_progress") || "{}");
-    const completed = p.completedLevels || [];
+
+    // Normalize types (handle ["3"] vs [3])
+    const completed = (p.completedLevels || []).map(n => parseInt(n, 10)).filter(Boolean);
     const stars = p.stars || {};
     const xp = p.totalXP || 0;
 
     document.getElementById("ps-completed").textContent = completed.length;
-    document.getElementById("ps-stars").textContent = Object.values(stars).reduce((a, v) => a + v, 0);
+    document.getElementById("ps-stars").textContent =
+    Object.values(stars).reduce((a, v) => a + (parseInt(v, 10) || 0), 0);
     document.getElementById("ps-xp").textContent = xp;
 
-    const next = completed.length + 1;
-    document.getElementById("ps-next").textContent = "LVL " + (next <= 6 ? next : 6);
+    // Next unlock = highest completed + 1 (more robust than completed.length + 1)
+    const maxDone = completed.length ? Math.max(...completed) : 0;
+    const next = Math.min(6, maxDone + 1);
+    document.getElementById("ps-next").textContent = "LVL " + next;
 
-    // Unlock cards
     for (let i = 1; i <= 6; i++) {
-    const card = document.getElementById(`card-${i}`);
+    let card = document.getElementById(`card-${i}`);
     if (!card) continue;
 
-    if (completed.includes(i)) {
+    const isCompleted = completed.includes(i);
+    const isActive = (i === 1) || (i === next) || isCompleted;
+
+    // If it should be clickable, make sure it's an <a>
+    if (isActive && card.tagName !== "A") {
+        const a = document.createElement("a");
+        a.id = card.id; // preserve id so future queries still work
+        a.innerHTML = card.innerHTML;
+        card.parentNode.replaceChild(a, card);
+        card = a;
+    }
+
+    if (isCompleted) {
         card.className = "level-card completed";
         card.href = `decklab-game.html?level=${i}`;
-        card.setAttribute("onclick", "");
 
         // Fill stars
-        const s = stars[i] || 0;
-        const starWrap = document.querySelectorAll(`#stars-${i} .star`);
-        starWrap.forEach((el, si) => {
-        if (si < s) el.classList.add("earned");
-        });
+        const s = parseInt(stars[i], 10) || 0;
+        const starEls = document.querySelectorAll(`#stars-${i} .star`);
+        starEls.forEach((el, idx) => el.classList.toggle("earned", idx < s));
 
         const status = card.querySelector(".lc-status");
         if (status) status.textContent = "Completed";
@@ -75,15 +87,11 @@ try {
         if (lbl) lbl.textContent = "3 / 3 objectives";
     } else if (i === next || i === 1) {
         card.className = "level-card active";
-
-        // If card isn't already an anchor, convert it to one
-        if (card.tagName !== "A") {
-        const a = document.createElement("a");
-        a.href = `decklab-game.html?level=${i}`;
-        a.className = "level-card active";
-        a.innerHTML = card.innerHTML;
-        card.parentNode.replaceChild(a, card);
-        }
+        card.href = `decklab-game.html?level=${i}`;
+    } else {
+        // locked state (optional — keep your existing locked styling)
+        card.className = "level-card locked";
+        if (card.tagName === "A") card.removeAttribute("href");
     }
     }
 } catch (e) {
