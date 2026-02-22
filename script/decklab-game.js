@@ -1,9 +1,9 @@
 // Track library
 const TRACK_LIBRARY=[
-  {id:1, name:"Do To Me",             artist:"Tim Sanders",              bpm:128,key:"9A", camelot:"9A", src:null},
+  {id:1, name:"Do To Me",             artist:"Tim Sanders",              bpm:128,key:"9A", camelot:"9A", src:"tracks/do-to-me.mp3"},
   {id:2, name:"My Love (Rework)",     artist:"it's murph",               bpm:128,key:"9A", camelot:"9A", src:"tracks/my-love.mp3"},
   {id:3, name:"Find The Way",         artist:"Peggy Gou",                bpm:131,key:"8A", camelot:"8A", src:"tracks/find-the-way.mp3"},
-  {id:4, name:"She's Gone, Dance On", artist:"Disclosure",               bpm:134,key:"10A",camelot:"10A",src:null},
+  {id:4, name:"She's Gone, Dance On", artist:"Disclosure",               bpm:134,key:"10A",camelot:"10A",src:"tracks/shes-gone.mp3"},
   {id:5, name:"Make Believe",         artist:"Luke Dean, Omar+",         bpm:133,key:"11A",camelot:"11A",src:"tracks/make-believe.mp3"},
   {id:6, name:"Stay",                 artist:"FISHER",                   bpm:128,key:"8A", camelot:"8A", src:"tracks/Stay.mp3"},
   {id:7, name:"Make Believe",         artist:"Jigitz",                   bpm:146,key:"9A", camelot:"9A", src:"tracks/make-believe.mp3"},
