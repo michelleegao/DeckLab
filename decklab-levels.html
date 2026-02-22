@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DeckLab Levels</title>
+
+    <link rel="stylesheet" href="./style/decklab-levels.css" />
+</head>
+<body>
+<div id="aura"></div>
+
+<nav>
+    <a href="decklab-landing.html" class="nav-logo">DeckLab</a>
+</nav>
+
+<div id="page">
+    <p class="page-eyebrow">// The Journey</p>
+    <h2 class="page-title">Choose your level</h2>
+
+    <div id="progress-summary">
+    <div class="ps-item">
+        <div class="ps-val" id="ps-completed">0</div>
+        <div class="ps-lbl">Levels Completed</div>
+    </div>
+    <div class="ps-item">
+        <div class="ps-val" id="ps-stars">0</div>
+        <div class="ps-lbl">Stars Earned</div>
+    </div>
+    <div class="ps-item">
+        <div class="ps-val" id="ps-xp">0</div>
+        <div class="ps-lbl">Total XP</div>
+    </div>
+    <div class="ps-item">
+        <div class="ps-val" id="ps-next">LVL 1</div>
+        <div class="ps-lbl">Current Level</div>
+    </div>
+    </div>
+
+    <!-- Level 1 card -->
+    <div id="levels-grid">
+    <a class="level-card active" href="decklab-game.html?level=1" id="card-1">
+        <div class="lc-bar"></div>
+        <div class="lc-num">LVL 01 /</div>
+        <div class="lc-title">BEDROOM<br />DJ</div>
+        <div class="lc-name">Bedroom DJ</div>
+        <div class="lc-obj">Play tracks. Control the crossfader.<br />Learn what a blend sounds like.</div>
+        <div class="lc-stars" id="stars-1">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="lc-progress">
+        <div class="lc-progress-fill" id="prog-1" style="width:0%;background:linear-gradient(90deg,#ff3cac,#784ba0)"></div>
+        </div>
+        <div class="lc-progress-label" id="prog-lbl-1">0 / 3 objectives</div>
+        <div style="height:10px"></div>
+        <span class="lc-status">Ready to Play</span>
+    </a>
+
+    <!-- Level 2 card -->
+    <div class="level-card locked" id="card-2">
+        <div class="lc-bar"></div>
+        <div class="lc-num">LVL 02 /</div>
+        <div class="lc-title">BACKYARD<br />BOILER</div>
+        <div class="lc-name">Beat Matching</div>
+        <div class="lc-obj">Match BPM between two tracks.<br />Use tempo slider + sync button.</div>
+        <div class="lc-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="lc-progress">
+        <div class="lc-progress-fill" style="width:0%;background:linear-gradient(90deg,#f7971e,#ffd200)"></div>
+        </div>
+        <div class="lc-progress-label">0 / 3 objectives</div>
+        <div style="height:10px"></div>
+        <span class="lc-status">Locked</span>
+        <div class="lc-unlock">Complete Level 1 to unlock</div>
+    </div>
+
+    <!-- Level 3 card -->
+    <div class="level-card locked" id="card-3">
+        <div class="lc-bar"></div>
+        <div class="lc-num">LVL 03 /</div>
+        <div class="lc-title">FRAT<br />BASEMENT</div>
+        <div class="lc-name">Key Matching</div>
+        <div class="lc-obj">Learn the Camelot Wheel.<br />Mix harmonically compatible keys.</div>
+        <div class="lc-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="lc-progress">
+        <div class="lc-progress-fill" style="width:0%;background:linear-gradient(90deg,#00c6ff,#0072ff)"></div>
+        </div>
+        <div class="lc-progress-label">0 / 3 objectives</div>
+        <div style="height:10px"></div>
+        <span class="lc-status">Locked</span>
+        <div class="lc-unlock">Complete Level 2 to unlock</div>
+    </div>
+
+    <!-- Level 4 card -->
+    <div class="level-card locked" id="card-4">
+        <div class="lc-bar"></div>
+        <div class="lc-num">LVL 04 /</div>
+        <div class="lc-title">SUNRISE<br />ROOFTOP</div>
+        <div class="lc-name">Cue Points + Crowd</div>
+        <div class="lc-obj">Master cue points. Manage<br />a live crowd simulator.</div>
+        <div class="lc-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="lc-progress">
+        <div class="lc-progress-fill" style="width:0%;background:linear-gradient(90deg,#a8ff78,#78ffd6)"></div>
+        </div>
+        <div class="lc-progress-label">0 / 3 objectives</div>
+        <div style="height:10px"></div>
+        <span class="lc-status">Locked</span>
+        <div class="lc-unlock">Complete Level 3 to unlock</div>
+    </div>
+
+    <!-- Level 5 card -->
+    <div class="level-card locked" id="card-5">
+        <div class="lc-bar"></div>
+        <div class="lc-num">LVL 05 /</div>
+        <div class="lc-title">FESTIVAL<br />GATE</div>
+        <div class="lc-name">EQ Control</div>
+        <div class="lc-obj">3-band EQ per deck. Bass swaps.<br />Crowd expects more.</div>
+        <div class="lc-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="lc-progress">
+        <div class="lc-progress-fill" style="width:0%;background:linear-gradient(90deg,#ff3cac,#ff9a00)"></div>
+        </div>
+        <div class="lc-progress-label">0 / 3 objectives</div>
+        <div style="height:10px"></div>
+        <span class="lc-status">Locked</span>
+        <div class="lc-unlock">Complete Level 4 to unlock</div>
+    </div>
+
+    <!-- Level 6 card -->
+    <div class="level-card locked" id="card-6">
+        <div class="lc-bar"></div>
+        <div class="lc-num">LVL 06 /</div>
+        <div class="lc-title">HEAD<br />LINER</div>
+        <div class="lc-name">Full Console · No Guidance</div>
+        <div class="lc-obj">Full setlist. Full crowd.<br />Just mix.</div>
+        <div class="lc-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <div class="lc-progress">
+        <div class="lc-progress-fill" style="width:0%;background:linear-gradient(90deg,#784ba0,#2575fc)"></div>
+        </div>
+        <div class="lc-progress-label">0 / 3 objectives</div>
+        <div style="height:10px"></div>
+        <span class="lc-status">Locked</span>
+        <div class="lc-unlock">Complete Level 5 to unlock</div>
+    </div>
+    </div>
+</div>
+
+<script src="./script/decklab-levels.js" defer></script>
+</body>
+</html>
