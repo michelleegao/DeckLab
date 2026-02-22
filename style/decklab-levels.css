@@ -5,6 +5,12 @@
   --text:#f0f0f0;
   --muted:#404050;
   --border:rgba(255,255,255,.07);
+
+  --gold: #f5c559;
+	--plum: #562165;
+	--rose: #da3086;
+
+	--olive: #5e4b2a;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -23,11 +29,44 @@ body {
   pointer-events:none;
   overflow:hidden;
 }
-.aura-blob{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(100px);
-  mix-blend-mode:screen;
+.aura-blob {
+	position: absolute;
+	border-radius: 50%;
+	filter: blur(90px);
+	mix-blend-mode: screen;
+	opacity: 0.9;
+}
+
+.blob-1 {
+	width: 520px;
+	height: 520px;
+	left: -140px;
+	top: -120px;
+  background: radial-gradient(circle at 30% 30%, #f5c559, transparent 60%);
+}
+
+.blob-2 {
+	width: 560px;
+	height: 560px;
+	right: -180px;
+	top: 140px;
+	background: radial-gradient(circle at 40% 35%, #562165, transparent 62%);
+}
+
+.blob-3 {
+	width: 520px;
+	height: 520px;
+	left: 18%;
+	bottom: -220px;
+	background: radial-gradient(circle at 35% 35%, #da3086, transparent 62%);
+}
+
+.blob-4 {
+	width: 460px;
+	height: 460px;
+	right: 12%;
+	bottom: -140px;
+	background: radial-gradient(circle at 40% 40%, #5e4b2a, transparent 62%);
 }
 
 body::after{
@@ -70,7 +109,7 @@ nav{
   font-size:9px;
   letter-spacing:4px;
   text-transform:uppercase;
-  color:rgba(255,255,255,.2);
+  color:rgba(255,255,255,.8);
   margin-bottom:10px;
 }
 .page-title{
@@ -167,7 +206,7 @@ nav{
   font-size:10px;
   letter-spacing:2px;
   text-transform:uppercase;
-  color:rgba(255,255,255,.3);
+  color:rgba(255,255,255,.8);
   margin-bottom:16px;
 }
 .lc-obj{
@@ -190,7 +229,7 @@ nav{
 .lc-progress-label{
   font-size:8px;
   letter-spacing:1px;
-  color:rgba(255,255,255,.2);
+  color:rgba(255,255,255,.8);
 }
 
 /* Stars */
@@ -207,7 +246,7 @@ nav{
   display:inline-block;
 }
 .level-card.completed .lc-status{
-  border-color:rgba(168,255,120,.3);
+  border-color:rgba(168,255,120,.8);
   color:rgba(168,255,120,.8);
 }
 .level-card.active .lc-status{
@@ -215,8 +254,8 @@ nav{
   color:rgba(255,60,172,.8);
 }
 .level-card.locked .lc-status{
-  border-color:rgba(255,255,255,.06);
-  color:rgba(255,255,255,.2);
+  border-color:rgba(255,255,255,.8);
+  color:rgba(255,255,255,.8);
 }
 
 .lc-unlock{
