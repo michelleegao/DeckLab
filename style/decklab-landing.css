@@ -1,0 +1,643 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@600;700;800&display=swap");
+
+/* Tokens/base */
+
+:root {
+  --void: #07070a;
+  --text: #f0f0f0;
+  --muted: #404050;
+  --border: rgba(255, 255, 255, 0.07);
+
+  --rose: #da3086;
+  --gold: #f5c559;
+  --plum: #562165;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: "DM Mono", monospace;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Background/aura/grain */
+
+#aura {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.aura-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  mix-blend-mode: screen;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Nav */
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 48px;
+  background: rgba(7, 7, 10, 0.55);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 22px;
+  letter-spacing: 6px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+/* Hero */
+
+#hero {
+  position: relative;
+  z-index: 2;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding: 0 48px;
+}
+
+.hero-eyebrow {
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: up 0.7s 0.2s forwards;
+}
+
+.hero-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(90px, 14vw, 200px);
+  line-height: 0.86;
+  letter-spacing: -2px;
+  color: #fff;
+
+  opacity: 0;
+  animation: up 0.8s 0.35s forwards;
+}
+
+.hero-rule {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(218, 48, 134, 0.8),
+    rgba(218, 48, 134, 0.8)
+  );
+
+  margin: 28px 0;
+  opacity: 0;
+  animation: up 0.7s 0.5s forwards;
+}
+
+.hero-sub {
+  font-size: 12px;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.35);
+
+  max-width: 360px;
+  margin-bottom: 0;
+
+  opacity: 0;
+  animation: up 0.7s 0.6s forwards;
+}
+
+@keyframes up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Auth terminal */
+
+.auth-block {
+  margin-top: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(218, 48, 134, 0.7),
+    rgba(86, 33, 101, 0.4),
+    transparent 70%
+  );
+}
+
+.auth-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.auth-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba(218, 48, 134, 0.9);
+  box-shadow: 0 0 7px rgba(218, 48, 134, 0.5);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.auth-header-lbl {
+  font-size: 7px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.18);
+  flex: 1;
+}
+
+.auth-header-lbl b {
+  font-weight: 400;
+  color: rgba(218, 48, 134, 0.55);
+}
+
+.auth-toggle {
+  font-size: 7px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.2);
+
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.15s;
+  padding: 2px 0;
+}
+
+.auth-toggle:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Signed-in state */
+.auth-signed {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+}
+
+.auth-signed.visible {
+  display: flex;
+}
+
+.auth-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 2px;
+  flex-shrink: 0;
+
+  border: 1px solid rgba(218, 48, 134, 0.3);
+  background: rgba(218, 48, 134, 0.07);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 13px;
+  color: rgba(218, 48, 134, 0.9);
+}
+
+.auth-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.auth-user {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.auth-user-sub {
+  font-size: 7px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(218, 48, 134, 0.45);
+}
+
+.auth-signout {
+  padding: 7px 14px;
+  border: 1px solid rgba(245, 197, 89, 0.2);
+  background: none;
+
+  color: rgba(245, 197, 89, 0.5);
+  font-family: inherit;
+  font-size: 7px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.auth-signout:hover {
+  border-color: rgba(245, 197, 89, 0.45);
+  color: rgba(245, 197, 89, 0.85);
+}
+
+/* Form state */
+.auth-form {
+  padding: 12px 14px 14px;
+}
+
+.auth-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.auth-field {
+  position: relative;
+}
+
+.auth-field-label {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  transform: translateY(-50%);
+
+  font-size: 7px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: rgba(255, 255, 255, 0.18);
+  background: rgba(7, 7, 10, 0.95);
+  padding: 0 4px;
+
+  pointer-events: none;
+  transition: color 0.15s;
+}
+
+.auth-field:focus-within .auth-field-label {
+  color: rgba(218, 48, 134, 0.65);
+}
+
+.auth-input {
+  display: block;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
+  color: #f0f0f0;
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color 0.16s, background 0.16s;
+}
+
+.auth-input::placeholder {
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.auth-input:focus {
+  border-color: rgba(218, 48, 134, 0.45);
+  background: rgba(218, 48, 134, 0.03);
+}
+
+.auth-btns {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 0;
+}
+
+.auth-btn {
+  flex: 1;
+  padding: 9px 0;
+
+  font-family: inherit;
+  font-size: 8px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+
+  border: 1px solid;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: transparent;
+}
+
+.auth-btn.primary {
+  border-color: rgba(218, 48, 134, 0.75);
+  color: rgba(218, 48, 134, 0.95);
+}
+
+.auth-btn.primary:hover {
+  background: rgba(218, 48, 134, 0.09);
+  border-color: rgba(218, 48, 134, 1);
+}
+
+.auth-btn.secondary {
+  border-color: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.auth-btn.secondary:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.auth-status-bar {
+  padding: 7px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.2);
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+}
+
+.auth-status-bar::before {
+  content: "›";
+  font-size: 10px;
+  color: rgba(218, 48, 134, 0.3);
+}
+
+/* Modes */
+
+#modes {
+  position: relative;
+  z-index: 2;
+  padding: 120px 48px 100px;
+}
+
+.modes-header {
+  margin-bottom: 48px;
+}
+
+.modes-title {
+  font-family: "Syne", sans-serif;
+  font-size: clamp(32px, 5vw, 58px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.05;
+}
+
+.modes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.mode-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  padding: 52px 48px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border);
+
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.mode-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.mode-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.mode-card.free::before {
+  background: radial-gradient(
+    ellipse at 10% 90%,
+    rgba(255, 90, 180, 0.08),
+    transparent 55%
+  );
+}
+
+.mode-card.game::before {
+  background: radial-gradient(
+    ellipse at 90% 90%,
+    rgba(100, 120, 255, 0.1),
+    transparent 55%
+  );
+}
+
+.mode-card:hover::before {
+  opacity: 1;
+}
+
+.mc-num {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 36px;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.mc-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 56px;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.mc-sub {
+  font-family: "Syne", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 10px;
+}
+
+.mc-desc {
+  font-size: 11px;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.28);
+  max-width: 340px;
+  margin-bottom: 36px;
+}
+
+.mc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 11px 24px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  font-family: "DM Mono", monospace;
+  border: 1px solid;
+  transition: all 0.22s;
+
+  border-color: rgba(218, 48, 134, 0.8);
+  color: rgba(218, 48, 134, 0.8);
+}
+
+.mode-card:hover .mc-btn {
+  background: rgba(218, 48, 134, 0.1);
+}
+
+.mc-tags {
+  position: absolute;
+  bottom: 28px;
+  right: 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.mc-tag {
+  font-size: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  padding: 3px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.18);
+}
+
+/* Footer */
+
+footer {
+  position: relative;
+  z-index: 2;
+
+  padding: 28px 48px;
+  border-top: 1px solid var(--border);
+
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+}
