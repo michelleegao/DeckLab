@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DeckLab</title>
+    <link href="style/decklab-landing.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="aura"></div>
+    <nav>
+        <a class="nav-logo" href="decklab-landing.html">DeckLab</a>
+        <ul class="nav-links">
+            <li><a href="#modes">Modes</a></li>
+            <li><a href="decklab-levels.html">Levels</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <h1 class="hero-title">
+            DECK<br />LAB
+        </h1>
+        <div class="hero-rule"></div>
+        <p class="hero-eyebrow">
+            LEARN TO MIX | INTERACTIVE WEB DJ
+        </p>
+    </section>
+
+    <section id="modes">
+        <div class="modes-header">
+            <h2 class="modes-title">
+                How do you<br />want to mix?
+            </h2>
+        </div>
+
+        <div class="modes-grid">
+            <a class="mode-card free" href="decklab-console.html">
+                <div class="mc-num">01 /</div>
+                <div class="mc-title">FREE MIX</div>
+                <div class="mc-sub">Make your own mix</div>
+                <p class="mc-desc">
+                    Upload any two tracks. Full console. No objectives. Mix and create on your own.
+                </p>
+
+                <span class="mc-btn">→ Open Console</span>
+                <div class="mc-tags">
+                    <span class="mc-tag">MP3 Upload</span>
+                    <span class="mc-tag">BPM Detection</span>
+                    <span class="mc-tag">Key Analysis</span>
+                    <span class="mc-tag">Full FX</span>
+                </div>
+            </a>
+
+            <a class="mode-card game" href="decklab-levels.html">
+                <div class="mc-num">02 /</div>
+                <div class="mc-title">THE GAME</div>
+                <div class="mc-sub">Level-based DJ journey</div>
+
+                <p class="mc-desc">
+                    Start as a Bedroom DJ. Six levels unlock new skills, hardware, and music theory.
+                    Finish each level to unlock the next.
+                </p>
+
+                <span class="mc-btn">→ View Levels</span>
+
+                <div class="auth-block" onclick="event.preventDefault()">
+
+                    <div class="auth-header">
+                        <div class="auth-dot"></div>
+                        <div class="auth-header-lbl">
+                            Session <b>/ Account</b>
+                        </div>
+                        <button class="auth-toggle" id="authToggle" onclick="toggleMode()">
+                            Create account
+                        </button>
+                    </div>
+
+                    <div class="auth-signed" id="authSigned">
+                        <div class="auth-avatar" id="authAvatar">?</div>
+                        <div class="auth-user-info">
+                            <span class="auth-user" id="authUser">—</span>
+                            <span class="auth-user-sub">Active session</span>
+                        </div>
+                        <button class="auth-signout" onclick="authLogout()">
+                            Sign out
+                        </button>
+                    </div>
+
+                    <div class="auth-form" id="authForm">
+                        <div class="auth-fields">
+
+                            <div class="auth-field">
+                                <div class="auth-field-label">Email</div>
+                                <input
+                                    autocomplete="email"
+                                    class="auth-input"
+                                    id="email"
+                                    placeholder="you@example.com"
+                                    type="email"
+                                />
+                            </div>
+
+                            <div class="auth-field">
+                                <div class="auth-field-label">Password</div>
+                                <input
+                                    autocomplete="current-password"
+                                    class="auth-input"
+                                    id="password"
+                                    placeholder="••••••"
+                                    type="password"
+                                />
+                            </div>
+
+                        </div>
+
+                        <div class="auth-btns">
+                            <button
+                                class="auth-btn primary"
+                                id="btnLogin"
+                                onclick="authLogin()"
+                            >
+                                Log in
+                            </button>
+
+                            <button
+                                class="auth-btn secondary"
+                                id="btnSignup"
+                                onclick="authSignup()"
+                                style="display:none"
+                            >
+                                Create
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="auth-status-bar">
+                        <span id="authStatus">Not signed in</span>
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+    </section>
+
+    <footer>
+        <span></span>
+        <span></span>
+    </footer>
+
+    <script src="script/decklab-landing.js"></script>
+
+</body>
+</html>
