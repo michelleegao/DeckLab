@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>
+        DeckLab — Free Mix
+    </title>
+    <link href="style/decklab-console.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="topbar">
+    <a class="tb-logo" href="decklab-landing.html">
+        DeckLab
+    </a>
+    <div class="tb-seg">
+    <span class="tb-lbl">
+        MODE
+    </span>
+        <span class="tb-mode">
+        FREE MIX
+    </span>
+    </div>
+    <div class="tb-seg">
+    <span class="tb-lbl">
+        ALL FEATURES UNLOCKED
+    </span>
+    </div>
+    <div class="tb-right">
+        <button class="tb-btn accent" onclick="openCamelot()">
+            Camelot
+        </button>
+        <button class="tb-btn" onclick="hardStop()">
+            ◼ Stop All
+        </button>
+        <button class="tb-btn" onclick="window.location='decklab-landing.html'">
+            ← Home
+        </button>
+    </div>
+</div>
+<div id="banner">
+    <div class="banner-msg" id="bannerMsg">
+        <strong>
+            Free Mix.
+        </strong>
+        Upload your own tracks to each deck. All controls unlocked. Press
+        <em>
+            Space
+        </em>
+        to play Deck A,
+        <em>
+            1/2
+        </em>
+        for cue points.
+    </div>
+</div>
+<div id="main">
+    <div id="board-area">
+        <div id="dj-board">
+            <!-- Deck A -->
+            <div class="deck-side deck-a">
+                <div class="deck-top">
+                    <div class="hw accented">
+                        <div class="track-name" id="tname-a">
+                            — No track loaded
+                        </div>
+                        <div class="track-meta" id="tmeta-a">
+        <span class="tmeta bpm" id="tbpm-a">
+            — BPM
+        </span>
+                            <span class="tmeta key" id="tkey-a">
+            Key —
+        </span>
+                        </div>
+                        <div style="margin-top:8px;">
+                            <label class="upload-btn">
+                                Upload MP3
+                                <input accept=".mp3,.wav,.ogg,.flac,.aac" onchange="handleUpload(event,'a')" style="display:none" type="file"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div style="padding:0;">
+                        <div class="wf" id="wf-a">
+                            <canvas class="wfc" id="wfc-a">
+                            </canvas>
+                            <div class="wf-ph" id="ph-a" style="left:0">
+                            </div>
+                            <div class="wf-hint" id="wfh-a">
+                                NO TRACK — UPLOAD ABOVE
+                            </div>
+                        </div>
+                    </div>
+                    <div class="platter-outer hw">
+                        <canvas height="188" id="plt-a" width="188">
+                        </canvas>
+                        <div class="platter-deck-label">
+                            DECK A
+                        </div>
+                    </div>
+                    <div class="hw accented">
+                        <div class="bpm-display">
+        <span class="bpm-num" id="bnum-a">
+            —
+        </span>
+                            <span class="bpm-u">
+            BPM
+        </span>
+                        </div>
+                        <div style="margin-top:6px;padding:8px;background:var(--raised);border:1px solid var(--border);">
+                            <div class="sl-row">
+        <span class="sl-lbl">
+            TEMPO
+        </span>
+                                <input id="pitch-a" max="8" min="-8" oninput="pitchChange('a')" step="0.05" type="range" value="0"/>
+                                <span class="sl-val" id="pval-a">
+            0%
+        </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hw">
+                        <div style="font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">
+                            EQ
+                        </div>
+                        <div class="eq-section" id="eq-a">
+                        </div>
+                    </div>
+                    <div class="hw accented">
+                        <div class="transport">
+                            <button class="t-btn" id="pbtn-a" onclick="togglePlay('a')" style="flex:2;">
+                                ▶ PLAY
+                            </button>
+                            <button class="t-btn" onclick="nudge('a',-0.08)">
+                                ◀
+                            </button>
+                            <button class="t-btn" onclick="nudge('a',0.08)">
+                                ▶
+                            </button>
+                            <button class="cue-round" id="cbtn-a" onclick="hitCue('a')">
+                                CUE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mixer -->
+            <div id="mixer">
+                <div class="mx-sec-title">
+                    MIXER
+                </div>
+                <canvas height="72" id="xf-ring" width="72">
+                </canvas>
+                <div class="xf-wrap">
+                    <input id="xf-range" max="100" min="0" oninput="xfChange()" type="range" value="50"/>
+                    <div class="mx-lbl" style="display:flex;gap:10px;align-items:center;">
+        <span style="color:var(--rose);font-size:9px;">
+            A
+        </span>
+                        <span>
+            ◀ XF ▶
+        </span>
+                        <span style="color:var(--gold);font-size:9px;">
+            B
+        </span>
+                    </div>
+                </div>
+                <div class="vu-row">
+                    <div class="vu-col">
+                        <div class="vu">
+                            <div class="vu-fill" id="vu-a" style="height:0%">
+                            </div>
+                        </div>
+                        <div class="mx-lbl" style="color:var(--rose);">
+                            A
+                        </div>
+                    </div>
+                    <div class="vu-col">
+                        <div class="vu" style="width:8px">
+                            <div class="vu-fill" id="vu-m" style="height:50%">
+                            </div>
+                        </div>
+                        <div class="mx-lbl">
+                            M
+                        </div>
+                    </div>
+                    <div class="vu-col">
+                        <div class="vu">
+                            <div class="vu-fill" id="vu-b" style="height:0%">
+                            </div>
+                        </div>
+                        <div class="mx-lbl" style="color:var(--gold);">
+                            B
+                        </div>
+                    </div>
+                </div>
+                <button class="sync-round" id="sync-btn" onclick="syncDecks()">
+                    SYNC
+                    <span class="sync-sub" id="sync-sub">
+        BPM
+    </span>
+                </button>
+                <div class="gain-wrap">
+                    <div class="mx-lbl" style="color:var(--rose)">
+                        GAIN A
+                    </div>
+                    <div class="fader-t" id="gain-a-t">
+                        <div class="fader-fill" id="gain-a-fill" style="height:70%">
+                        </div>
+                        <div class="fader-th" id="gain-a-th" style="bottom:70%">
+                        </div>
+                    </div>
+                </div>
+                <div class="gain-wrap">
+                    <div class="mx-lbl" style="color:var(--gold)">
+                        GAIN B
+                    </div>
+                    <div class="fader-t" id="gain-b-t">
+                        <div class="fader-fill" id="gain-b-fill" style="height:70%">
+                        </div>
+                        <div class="fader-th" id="gain-b-th" style="bottom:70%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Deck B -->
+            <div class="deck-side deck-b">
+                <div class="deck-top">
+                    <div class="hw accented">
+                        <div class="track-name" id="tname-b">
+                            — No track loaded
+                        </div>
+                        <div class="track-meta" id="tmeta-b">
+        <span class="tmeta bpm" id="tbpm-b">
+            — BPM
+        </span>
+                            <span class="tmeta key" id="tkey-b">
+            Key —
+        </span>
+                        </div>
+                        <div style="margin-top:8px;">
+                            <label class="upload-btn">
+                                Upload MP3
+                                <input accept=".mp3,.wav,.ogg,.flac,.aac" onchange="handleUpload(event,'b')" style="display:none" type="file"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div style="padding:0;">
+                        <div class="wf" id="wf-b">
+                            <canvas class="wfc" id="wfc-b">
+                            </canvas>
+                            <div class="wf-ph" id="ph-b" style="left:0">
+                            </div>
+                            <div class="wf-hint" id="wfh-b">
+                                NO TRACK — UPLOAD ABOVE
+                            </div>
+                        </div>
+                    </div>
+                    <div class="platter-outer hw">
+                        <canvas height="188" id="plt-b" width="188">
+                        </canvas>
+                        <div class="platter-deck-label">
+                            DECK B
+                        </div>
+                    </div>
+                    <div class="hw accented">
+                        <div class="bpm-display">
+        <span class="bpm-num" id="bnum-b">
+            —
+        </span>
+                            <span class="bpm-u">
+            BPM
+        </span>
+                        </div>
+                        <div style="margin-top:6px;padding:8px;background:var(--raised);border:1px solid var(--border);">
+                            <div class="sl-row">
+        <span class="sl-lbl">
+            TEMPO
+        </span>
+                                <input id="pitch-b" max="8" min="-8" oninput="pitchChange('b')" step="0.05" type="range" value="0"/>
+                                <span class="sl-val" id="pval-b">
+            0%
+        </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hw">
+                        <div style="font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">
+                            EQ
+                        </div>
+                        <div class="eq-section" id="eq-b">
+                        </div>
+                    </div>
+                    <div class="hw accented">
+                        <div class="transport">
+                            <button class="t-btn" id="pbtn-b" onclick="togglePlay('b')" style="flex:2;">
+                                ▶ PLAY
+                            </button>
+                            <button class="t-btn" onclick="nudge('b',-0.08)">
+                                ◀
+                            </button>
+                            <button class="t-btn" onclick="nudge('b',0.08)">
+                                ▶
+                            </button>
+                            <button class="cue-round" id="cbtn-b" onclick="hitCue('b')">
+                                CUE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- DJ board -->
+        <div id="statusbar">
+            <div class="sb">
+    <span>
+        BPM A
+    </span>
+                <span class="sb-v" id="sb-ba">
+        —
+    </span>
+            </div>
+            <div class="sb">
+    <span>
+        BPM B
+    </span>
+                <span class="sb-v" id="sb-bb">
+        —
+    </span>
+            </div>
+            <div class="sb">
+    <span>
+        DRIFT
+    </span>
+                <span class="sb-v" id="sb-drift">
+        —
+    </span>
+            </div>
+            <div class="sb">
+    <span>
+        KEY A
+    </span>
+                <span class="sb-v" id="sb-ka">
+        —
+    </span>
+            </div>
+            <div class="sb">
+    <span>
+        KEY B
+    </span>
+                <span class="sb-v" id="sb-kb">
+        —
+    </span>
+            </div>
+            <div class="sb">
+    <span>
+        HARM
+    </span>
+                <span class="sb-v" id="sb-harm">
+        —
+    </span>
+            </div>
+            <div class="sb sb-right">
+                FREE MIX MODE
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CAMELOT -->
+<div id="camelot-modal">
+    <div class="cm-box">
+        <div class="cm-title">
+            Camelot Wheel
+        </div>
+        <div class="cm-sub">
+            Adjacent keys (±1) blend harmonically. Same number = perfect match.
+            <br/>
+            <span style="color:rgba(218,48,134,.8)">
+        ■ Deck A
+    </span>
+            <span style="color:rgba(245,197,89,.8)">
+        ■ Deck B
+    </span>
+            <span style="color:rgba(120,255,214,.6)">
+        ■ Compatible
+    </span>
+        </div>
+        <canvas height="280" id="camelot-canvas" style="display:block;margin:0 auto 20px;" width="280">
+        </canvas>
+        <button class="cm-close" onclick="document.getElementById('camelot-modal').classList.remove('show')">
+            Close → Keep Mixing
+        </button>
+    </div>
+</div>
+<div id="toast">
+</div>
+<script src="script/decklab-console.js">
+</script>
+</body>
+</html>

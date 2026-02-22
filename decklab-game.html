@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>
+        DeckLab — Game
+    </title>
+    <link href="style/decklab-game.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- Top bar -->
+<div id="topbar">
+    <a class="tb-logo" href="decklab-landing.html">
+        DeckLab
+    </a>
+    <div class="tb-seg">
+        <span class="tb-lbl">
+        LEVEL
+        </span>
+        <span class="tb-lvl" id="tb-lvl">
+        01
+        </span>
+        <span class="tb-lbl" id="tb-lvlname">
+        Bedroom DJ
+        </span>
+    </div>
+    <div class="xp-wrap">
+        <div class="xp-track">
+            <div class="xp-fill" id="xp-fill" style="width:0%">
+            </div>
+        </div>
+        <span class="xp-label">
+        <span id="xp-now">
+        0
+        </span>
+        /
+        <span id="xp-max">
+        100
+        </span>
+        XP
+        </span>
+    </div>
+    <div class="obj-strip" id="obj-strip">
+    </div>
+    <div class="tb-right">
+        <button class="tb-btn accent" id="cam-btn-top" onclick="openCamelot()" style="display:none">
+            Camelot
+        </button>
+        <button class="tb-btn" onclick="window.location='decklab-levels.html'">
+            Levels
+        </button>
+        <button class="tb-btn" onclick="hardStop()">
+            ■ Stop
+        </button>
+    </div>
+</div>
+<!-- Coach -->
+<div id="coachbar">
+    <div class="coach-aura">
+        🎧
+    </div>
+    <div class="coach-msg" id="coach-msg">
+        Loading level…
+    </div>
+    <div class="quiz-area" id="quiz-area">
+    </div>
+</div>
+<!-- Main -->
+<div id="main">
+    <div id="board-area">
+        <div id="dj-board">
+            <!-- Deck A -->
+            <div class="deck-side deck-a" id="deck-a-side">
+                <div class="deck-top">
+                    <div class="deck-drop-zone" id="drop-a">
+                    </div>
+                    <!-- Track info -->
+                    <div class="hw accented">
+                        <div class="track-name" id="tname-a">
+                            — Drop a track from the setlist ↓
+                        </div>
+                        <div class="track-meta" id="tmeta-a">
+            <span class="tmeta bpm" id="tbpm-a">
+            — BPM
+            </span>
+                            <span class="tmeta key" id="tkey-a">
+            Key —
+            </span>
+                        </div>
+                    </div>
+                    <!-- Waveform -->
+                    <div style="padding:0;">
+                        <div class="wf" id="wf-a">
+                            <canvas class="wfc" id="wfc-a">
+                            </canvas>
+                            <div class="wf-ph" id="ph-a" style="left:0">
+                            </div>
+                            <div class="wf-hint" id="wfh-a">
+                                NO TRACK
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Platter -->
+                    <div class="platter-outer hw">
+                        <canvas height="188" id="plt-a" width="188">
+                        </canvas>
+                        <div class="platter-deck-label">
+                            DECK A
+                        </div>
+                    </div>
+                    <!-- BPM and Pitch -->
+                    <div class="hw accented">
+                        <div class="bpm-display">
+            <span class="bpm-num" id="bnum-a">
+            —
+            </span>
+                            <span class="bpm-u">
+            BPM
+            </span>
+                        </div>
+                        <div class="hw locked" id="pitch-a-wrap" style="margin-top:6px;padding:8px;">
+                            <div class="unlock-chip" id="pitch-a-lock">
+                                Unlocks Lvl 2
+                            </div>
+                            <div class="sl-row">
+            <span class="sl-lbl">
+            TEMPO
+            </span>
+                                <input id="pitch-a" max="8" min="-8" oninput="pitchChange('a')" step="0.05" type="range" value="0"/>
+                                <span class="sl-val" id="pval-a">
+            0%
+            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- EQ -->
+                    <div class="hw locked" id="eq-a-wrap">
+                        <div class="unlock-chip" id="eq-a-lock">
+                            Unlocks Lvl 5
+                        </div>
+                        <div style="font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">
+                            EQ
+                        </div>
+                        <div class="eq-section" id="eq-a">
+                        </div>
+                    </div>
+                    <!-- Transport -->
+                    <div class="hw accented">
+                        <div class="transport">
+                            <button class="t-btn" id="pbtn-a" onclick="togglePlay('a')" style="flex:2;">
+                                ▶ PLAY
+                            </button>
+                            <button class="t-btn" id="nudge-al" onclick="nudge('a',-0.08)" style="opacity:.2;pointer-events:none">
+                                ◀
+                            </button>
+                            <button class="t-btn" id="nudge-ar" onclick="nudge('a',0.08)" style="opacity:.2;pointer-events:none">
+                                ▶
+                            </button>
+                            <button class="cue-round" id="cbtn-a" onclick="hitCue('a')">
+                                CUE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mixer -->
+            <div id="mixer">
+                <div class="mx-sec-title">
+                    MIXER
+                </div>
+                <!-- XF Ring -->
+                <canvas height="72" id="xf-ring" width="72">
+                </canvas>
+                <div class="xf-wrap">
+                    <input id="xf-range" max="100" min="0" oninput="xfChange()" type="range" value="50"/>
+                    <div class="mx-lbl" style="display:flex;gap:10px;align-items:center;">
+            <span style="color:var(--rose);font-size:9px;">
+            A
+            </span>
+                        <span>
+            ◄ XF ►
+            </span>
+                        <span style="color:var(--gold);font-size:9px;">
+            B
+            </span>
+                    </div>
+                </div>
+                <!-- VU meters -->
+                <div class="vu-row">
+                    <div class="vu-col">
+                        <div class="vu">
+                            <div class="vu-fill" id="vu-a" style="height:0%">
+                            </div>
+                        </div>
+                        <div class="mx-lbl" style="color:var(--rose);">
+                            A
+                        </div>
+                    </div>
+                    <div class="vu-col">
+                        <div class="vu" style="width:8px">
+                            <div class="vu-fill" id="vu-m" style="height:50%">
+                            </div>
+                        </div>
+                        <div class="mx-lbl">
+                            M
+                        </div>
+                    </div>
+                    <div class="vu-col">
+                        <div class="vu">
+                            <div class="vu-fill" id="vu-b" style="height:0%">
+                            </div>
+                        </div>
+                        <div class="mx-lbl" style="color:var(--gold);">
+                            B
+                        </div>
+                    </div>
+                </div>
+                <!-- Sync -->
+                <button class="sync-round" id="sync-btn" onclick="syncDecks()">
+                    SYNC
+                    <span class="sync-sub" id="sync-sub">
+            LVL2
+        </span>
+                </button>
+                <!-- Gain faders -->
+                <div class="gain-wrap">
+                    <div class="mx-lbl" style="color:var(--rose)">
+                        GAIN A
+                    </div>
+                    <div class="fader-t" id="gain-a-t">
+                        <div class="fader-fill" id="gain-a-fill" style="height:70%">
+                        </div>
+                        <div class="fader-th" id="gain-a-th" style="bottom:70%">
+                        </div>
+                    </div>
+                </div>
+                <div class="gain-wrap">
+                    <div class="mx-lbl" style="color:var(--gold)">
+                        GAIN B
+                    </div>
+                    <div class="fader-t" id="gain-b-t">
+                        <div class="fader-fill" id="gain-b-fill" style="height:70%">
+                        </div>
+                        <div class="fader-th" id="gain-b-th" style="bottom:70%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Deck B -->
+            <div class="deck-side deck-b" id="deck-b-side">
+                <div class="deck-top">
+                    <div class="deck-drop-zone" id="drop-b">
+                    </div>
+                    <div class="hw accented">
+                        <div class="track-name" id="tname-b">
+                            — Drop a track from the setlist ↓
+                        </div>
+                        <div class="track-meta" id="tmeta-b">
+            <span class="tmeta bpm" id="tbpm-b">
+            — BPM
+            </span>
+                            <span class="tmeta key" id="tkey-b">
+            Key —
+            </span>
+                        </div>
+                    </div>
+                    <div style="padding:0;">
+                        <div class="wf" id="wf-b">
+                            <canvas class="wfc" id="wfc-b">
+                            </canvas>
+                            <div class="wf-ph" id="ph-b" style="left:0">
+                            </div>
+                            <div class="wf-hint" id="wfh-b">
+                                NO TRACK
+                            </div>
+                        </div>
+                    </div>
+                    <div class="platter-outer hw">
+                        <canvas height="188" id="plt-b" width="188">
+                        </canvas>
+                        <div class="platter-deck-label">
+                            DECK B
+                        </div>
+                    </div>
+                    <div class="hw accented">
+                        <div class="bpm-display">
+            <span class="bpm-num" id="bnum-b">
+            —
+            </span>
+                            <span class="bpm-u">
+            BPM
+            </span>
+                        </div>
+                        <div class="hw locked" id="pitch-b-wrap" style="margin-top:6px;padding:8px;">
+                            <div class="unlock-chip" id="pitch-b-lock">
+                                Unlocks Lvl 2
+                            </div>
+                            <div class="sl-row">
+            <span class="sl-lbl">
+            TEMPO
+            </span>
+                                <input id="pitch-b" max="8" min="-8" oninput="pitchChange('b')" step="0.05" type="range" value="0"/>
+                                <span class="sl-val" id="pval-b">
+            0%
+            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hw locked" id="eq-b-wrap">
+                        <div class="unlock-chip" id="eq-b-lock">
+                            Unlocks Lvl 5
+                        </div>
+                        <div style="font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">
+                            EQ
+                        </div>
+                        <div class="eq-section" id="eq-b">
+                        </div>
+                    </div>
+                    <div class="hw accented">
+                        <div class="transport">
+                            <button class="t-btn" id="pbtn-b" onclick="togglePlay('b')" style="flex:2;">
+                                ▶ PLAY
+                            </button>
+                            <button class="t-btn" id="nudge-bl" onclick="nudge('b',-0.08)" style="opacity:.2;pointer-events:none">
+                                ◀
+                            </button>
+                            <button class="t-btn" id="nudge-br" onclick="nudge('b',0.08)" style="opacity:.2;pointer-events:none">
+                                ▶
+                            </button>
+                            <button class="cue-round" id="cbtn-b" onclick="hitCue('b')">
+                                CUE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- DJ board -->
+        <!-- Setlist -->
+        <div id="setlist-panel">
+            <div class="sl-header">
+        <span class="sl-header-label" id="sl-level-label">
+        Level 1 — Set List
+        </span>
+                <span class="sl-hint">
+        Drag a track to Deck A or B
+        </span>
+            </div>
+            <div class="sl-tracks" id="sl-tracks">
+            </div>
+        </div>
+        <!-- Status -->
+        <div id="statusbar">
+            <div class="sb">
+        <span>
+        BPM A
+        </span>
+                <span class="sb-v" id="sb-ba">
+        —
+        </span>
+            </div>
+            <div class="sb">
+        <span>
+        BPM B
+        </span>
+                <span class="sb-v" id="sb-bb">
+        —
+        </span>
+            </div>
+            <div class="sb">
+        <span>
+        DRIFT
+        </span>
+                <span class="sb-v" id="sb-drift">
+        —
+        </span>
+            </div>
+            <div class="sb">
+        <span>
+        KEY A
+        </span>
+                <span class="sb-v" id="sb-ka">
+        —
+        </span>
+            </div>
+            <div class="sb">
+        <span>
+        KEY B
+        </span>
+                <span class="sb-v" id="sb-kb">
+        —
+        </span>
+            </div>
+            <div class="sb">
+        <span>
+        HARM
+        </span>
+                <span class="sb-v" id="sb-harm">
+        —
+        </span>
+            </div>
+            <div class="sb sb-right">
+                XP
+                <span id="sb-xp">
+        0
+        </span>
+            </div>
+        </div>
+        <div id="task-bar">
+        </div>
+    </div>
+    <!-- Main -->
+    <!-- Camelot -->
+    <div id="camelot-modal">
+        <div class="cm-box">
+            <div class="cm-title">
+                Camelot Wheel
+            </div>
+            <div class="cm-sub">
+                Adjacent keys (±1) blend harmonically. Same number = perfect match.
+                <br/>
+                <span style="color:rgba(218,48,134,.8)">
+        ■ Deck A
+        </span>
+                <span style="color:rgba(245,197,89,.8)">
+        ■ Deck B
+        </span>
+                <span style="color:rgba(120,255,214,.6)">
+        ■ Compatible
+        </span>
+            </div>
+            <canvas height="280" id="camelot-canvas" width="280">
+            </canvas>
+            <button class="cm-close" onclick="document.getElementById('camelot-modal').classList.remove('show')">
+                Close → Keep Mixing
+            </button>
+        </div>
+    </div>
+    <!-- Level Complete -->
+    <div id="lvl-complete">
+        <div class="lc-eye">
+            Level Complete
+        </div>
+        <div class="lc-title" id="lc-title">
+            BEDROOM DJ
+        </div>
+        <div class="lc-stars-row" id="lc-stars-row">
+            ⭐⭐⭐
+        </div>
+        <div class="lc-grid">
+            <div class="lc-stat">
+                <div class="lc-sv" id="lc-xp">
+                    0
+                </div>
+                <div class="lc-sl">
+                    XP
+                </div>
+            </div>
+            <div class="lc-stat">
+                <div class="lc-sv" id="lc-objs">
+                    0/3
+                </div>
+                <div class="lc-sl">
+                    Objectives
+                </div>
+            </div>
+            <div class="lc-stat">
+                <div class="lc-sv" id="lc-time">
+                    0:00
+                </div>
+                <div class="lc-sl">
+                    Time
+                </div>
+            </div>
+        </div>
+        <div class="lc-tip" id="lc-tip">
+        </div>
+        <div class="lc-actions">
+            <button class="lc-btn p" id="lc-next-btn" onclick="nextLevel()">
+                → Next Level
+            </button>
+            <button class="lc-btn s" onclick="window.location='decklab-levels.html'">
+                ← All Levels
+            </button>
+        </div>
+    </div>
+    <div id="toast">
+    </div>
+    <script src="script/decklab-game.js"></script>
+</body>
+</html>
