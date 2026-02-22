@@ -47,7 +47,7 @@ try {
     Object.values(stars).reduce((a, v) => a + (parseInt(v, 10) || 0), 0);
     document.getElementById("ps-xp").textContent = xp;
 
-    // Next unlock = highest completed + 1 (more robust than completed.length + 1)
+    // Next unlock = highest completed + 1
     const maxDone = completed.length ? Math.max(...completed) : 0;
     const next = Math.min(6, maxDone + 1);
     document.getElementById("ps-next").textContent = "LVL " + next;
@@ -89,7 +89,7 @@ try {
         card.className = "level-card active";
         card.href = `decklab-game.html?level=${i}`;
     } else {
-        // locked state (optional — keep your existing locked styling)
+        // locked state
         card.className = "level-card locked";
         if (card.tagName === "A") card.removeAttribute("href");
     }
